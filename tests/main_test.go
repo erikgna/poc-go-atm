@@ -13,7 +13,7 @@ func TestWithdrawWithNotes_Success(t *testing.T) {
 
 	notes, err := atm.WithdrawWithNotes(240, acct)
 	if err != nil {
-		t.Fatalf("erro ao sacar: %v", err)
+		t.Fatalf("error to withdraw: %v", err)
 	}
 
 	expected := []atm.Notes{
@@ -22,11 +22,11 @@ func TestWithdrawWithNotes_Success(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(notes, expected) {
-		t.Errorf("esperado %v, recebido %v", expected, notes)
+		t.Errorf("expected %v, received %v", expected, notes)
 	}
 
 	if acct.GetBalance() != 760 {
-		t.Errorf("esperado saldo 760, atual %d", acct.GetBalance())
+		t.Errorf("balance should be 760: %d", acct.GetBalance())
 	}
 }
 
@@ -35,7 +35,7 @@ func TestWithdrawWithNotes_ExactDenomination(t *testing.T) {
 
 	notes, err := atm.WithdrawWithNotes(50, acct)
 	if err != nil {
-		t.Fatalf("erro ao sacar: %v", err)
+		t.Fatalf("error to withdraw: %v", err)
 	}
 
 	expected := []atm.Notes{
@@ -43,11 +43,11 @@ func TestWithdrawWithNotes_ExactDenomination(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(notes, expected) {
-		t.Errorf("esperado %v, recebido %v", expected, notes)
+		t.Errorf("expected %v, received %v", expected, notes)
 	}
 
 	if acct.GetBalance() != 450 {
-		t.Errorf("esperado saldo 450, atual %d", acct.GetBalance())
+		t.Errorf("balance should be 450: %d", acct.GetBalance())
 	}
 }
 
@@ -56,7 +56,7 @@ func TestWithdrawWithNotes_InvalidAmount(t *testing.T) {
 
 	_, err := atm.WithdrawWithNotes(25, acct)
 	if err == nil {
-		t.Fatal("esperado erro, recebido nil")
+		t.Fatal("expected error, received nil")
 	}
 }
 
@@ -65,7 +65,7 @@ func TestWithdrawWithNotes_InsufficientBalance(t *testing.T) {
 
 	_, err := atm.WithdrawWithNotes(200, acct)
 	if err == nil {
-		t.Fatal("esperado erro, recebido nil")
+		t.Fatal("expected error, received nil")
 	}
 }
 
@@ -74,7 +74,7 @@ func TestWithdrawWithNotes_WithdrawAllBalance(t *testing.T) {
 
 	notes, err := atm.WithdrawWithNotes(130, acct)
 	if err != nil {
-		t.Fatalf("erro ao sacar: %v", err)
+		t.Fatalf("error to withdraw: %v", err)
 	}
 
 	expected := []atm.Notes{
@@ -84,10 +84,10 @@ func TestWithdrawWithNotes_WithdrawAllBalance(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(notes, expected) {
-		t.Errorf("esperado %v, recebido %v", expected, notes)
+		t.Errorf("expected %v, received %v", expected, notes)
 	}
 
 	if acct.GetBalance() != 0 {
-		t.Errorf("esperado saldo 0, atual %d", acct.GetBalance())
+		t.Errorf("balance should be 0: %d", acct.GetBalance())
 	}
 }
